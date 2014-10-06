@@ -18,13 +18,13 @@ Usage (of pusage)
     setTimeout(firefox.kill, 5000);
 
 API
-=====
+-----
 pusage is instantiated with an options hash with the following (all
 optional) fields:
   - `interval`: the time (ms) to wait in between collecting stats from
     `/proc`.
   - `logStream`: a writable stream to log stats to.
-  - `logFile`: a filename (string) to log stats to (overrides `logStream`).
+  - `logFile`: a filename (string) to log stats to. Overrides `logStream`.
 
 For example:
 
@@ -37,25 +37,21 @@ For example:
     };
     var pusage = require('pusage')(opts);
 
-.watch(pidOrName)
------------------
+### .watch(pidOrName)
 Start watching a process and logging its usage stats. The argument can
 either be the PID (integer) or name (string) of the process to watch.
 This throws an error if the process is not running.
 
-.unwatch(pidOrName)
--------------------
+### .unwatch(pidOrName)
 Stop watching a process and logging its usage stats. The argument can
 either be the PID (integer) or name (string) of the process to watch.
 This throws an error if the process is not currently being watched.
 
-.stop()
--------
+### .stop()
 Stop watching all processes and close all open files, including log
 files.
 
-event 'log'
------------
+### event 'log'
 Emitted whenever the stats are collected for a process (i.e. every
 `interval` ms).  Returns two arguments: a stats object and a serialized
 stats line. For example:

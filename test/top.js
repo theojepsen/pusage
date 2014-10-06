@@ -11,7 +11,7 @@ usage.watch(top.pid);
 
 var lastTime = 0;
 usage.on('log', function (s, line) {
-  if (s.time < 1) return;
+  if (s.time < 0.6) return;
   expect(s).to.be.an('object');
   expect(line).to.be.a('string');
   expect(s.pid).to.be(top.pid);
@@ -26,13 +26,13 @@ usage.on('log', function (s, line) {
   expect(s.rcharPerSecond).to.be.greaterThan(100);
   expect(s.wcharPerSecond).to.be.greaterThan(100);
   expect(s.time).to.be.greaterThan(lastTime);
-  if (lastTime > 10) {
+  if (lastTime > 2) {
     usage.unwatch(top.pid);
     top.kill();
     setTimeout(function () {
       // run for a little longer -- should not crash!
       process.exit(0); 
-    }, 1000);
+    }, 500);
   }
   lastTime = s.time;
 });
